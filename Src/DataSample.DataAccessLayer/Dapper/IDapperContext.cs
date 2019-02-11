@@ -16,6 +16,10 @@ namespace DataSample.DataAccessLayer.Dapper
 
         Task<T> GetObjectAsync<T>(string sql, object param = null, CommandType? commandType = null) where T : class;
 
+        Task<TReturn> GetObjectAsync<TFirst, TSecond, TReturn>(string sql, Func<TFirst, TSecond, TReturn> map, object param = null, string splitOn = "Id", CommandType? commandType = null) where TReturn : class;
+
+        Task<TReturn> GetObjectAsync<TFirst, TSecond, TThird, TReturn>(string sql, Func<TFirst, TSecond, TThird, TReturn> map, object param = null, string splitOn = "Id", CommandType? commandType = null) where TReturn : class;
+
         Task<T> GetSingleValueAsync<T>(string sql, object param = null, CommandType? commandType = null);
 
         Task<T> InsertAsync<T>(string sql, object param = null, CommandType? commandType = null) where T : class;

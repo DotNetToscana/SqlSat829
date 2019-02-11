@@ -37,12 +37,7 @@ namespace DataSample.DataAccessLayer.EntityFramework
         public IQueryable<T> GetData<T>(bool trackingChanges = false) where T : class
         {
             var set = Set<T>();
-            if (trackingChanges)
-            {
-                return set.AsTracking();
-            }
-
-            return set.AsNoTracking();
+            return trackingChanges ? set.AsTracking() : set.AsNoTracking();
         }
 
         public void Insert<T>(T entity) where T : class
