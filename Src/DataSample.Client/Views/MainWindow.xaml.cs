@@ -16,22 +16,25 @@ using System.Windows.Shapes;
 using Microsoft.Extensions.DependencyInjection;
 using DataSample.BusinessLayer;
 
-namespace DataSample.Client
+namespace DataSample.Client.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly IProductsService productsService;
+
+        public MainWindow(IServiceProvider serviceProvider, IProductsService productsService)
         {
             InitializeComponent();
+
+            this.productsService = productsService;
         }
 
         private async void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
-            var service = App.ServiceProvider.GetService<IProductsService>();
-            await service.GetProductsAsync(null, 0, 30);
+            await productsService.GetProductsAsync(null, 0, 30);
 
             Application.Current.Shutdown();
         }

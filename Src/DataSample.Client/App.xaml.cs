@@ -1,4 +1,5 @@
 ﻿using DataSample.BusinessLayer;
+using DataSample.Client.Views;
 using DataSample.DataAccessLayer.Dapper;
 using DataSample.DataAccessLayer.EntityFramework;
 using Microsoft.EntityFrameworkCore;
@@ -20,19 +21,44 @@ namespace DataSample.Client
     /// </summary>
     public partial class App : Application
     {
-        public static IServiceProvider ServiceProvider { get; private set; }
+        public IServiceProvider ServiceProvider { get; private set; }
 
-        private void Application_Startup(object sender, StartupEventArgs e)
+        public IConfiguration Configuration { get; private set; }
+
+        protected override void OnStartup(StartupEventArgs e)
         {
-            var configuration = new ConfigurationBuilder()
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            //var launch = Environment.GetEnvironmentVariable("LAUNCH_PROFILE");
+
+            if (string.IsNullOrWhiteSpace(env))
+            {
+                env = "Development";
+            }
+
+            var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env}.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables();
 
-            var connectionString = configuration.GetConnectionString("SqlConnection");
+            Configuration = builder.Build();
 
-            ServiceProvider = new ServiceCollection()
-                .AddSingleton<IEntityFrameworkContext, EntityFrameworkContext>((_) =>
+            // Create a service collection and configure our depdencies
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
+
+            // Build the our IServiceProvider and set our static reference to it
+            ServiceProvider = serviceCollection.BuildServiceProvider();
+
+            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+            mainWindow.Show();
+        }
+
+        private void ConfigureServices(IServiceCollection services)
+        {
+            var connectionString = Configuration.GetConnectionString("SqlConnection");
+
+            services.AddSingleton<IEntityFrameworkContext, EntityFrameworkContext>((_) =>
                 {
                     var options = new DbContextOptionsBuilder<EntityFrameworkContext>()
                         .UseSqlServer(connectionString)
@@ -41,9 +67,18 @@ namespace DataSample.Client
                     return new EntityFrameworkContext(options);
                 })
                 .AddSingleton<IDapperContext, DapperContext>((_) => new DapperContext(connectionString))
-                .AddSingleton<IProductsService, EntityFrameworkProductsService>()
-                //.AddSingleton<IProductsService, DapperProductsService>()
-                .BuildServiceProvider();
+                .AddSingleton<IProductsService, EntityFrameworkProductsService>();
+
+            // Add AutoMapper
+            //var config = new AutoMapper.MapperConfiguration(cfg =>
+            //{
+            //    cfg.AddProfile(new AutoMapperProfile());
+            //});
+            //
+            //var mapper = config.CreateMapper();
+            //services.AddSingleton(mapper);
+
+            services.AddTransient(typeof(MainWindow));
         }
     }
 }
