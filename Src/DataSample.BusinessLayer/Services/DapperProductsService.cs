@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataSample.BusinessLayer
+namespace DataSample.BusinessLayer.Services
 {
     public class DapperProductsService : IProductsService
     {

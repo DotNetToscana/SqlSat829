@@ -5,25 +5,67 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:DataSample.Client"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="MainWindow"
-    Width="800"
-    Height="450"
+    Title="Data Sample"
+    Width="900"
+    Height="600"
+    FontSize="20"
+    Loaded="Window_Loaded"
     mc:Ignorable="d">
+
+    <Window.Resources>
+        <Style x:Key="DataGridRightAlignedStyle" TargetType="DataGridCell">
+            <Setter Property="TextBlock.TextAlignment" Value="Right" />
+        </Style>
+    </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="9*" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Label
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Content="Hello .NET Core!"
-            FontSize="40" />
-        <Button
+
+        <StackPanel
+            Grid.Row="0"
+            Margin="0,0,5,0"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+            <TextBlock Margin="0,0,5,0" Text="Search term:" />
+            <TextBox
+                Name="SearchTextBox"
+                Width="200"
+                KeyUp="SearchTextBox_KeyUp" />
+        </StackPanel>
+
+        <DataGrid
+            Name="ProductsDataGrid"
             Grid.Row="1"
-            Click="ButtonExit_Click"
-            Content="Exit"
-            FontSize="20" />
+            Margin="5"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Binding="{Binding ProductId}"
+                    CellStyle="{StaticResource DataGridRightAlignedStyle}"
+                    Header="Id" />
+                <DataGridTextColumn Binding="{Binding ProductName}" Header="Name" />
+                <DataGridTextColumn Binding="{Binding QuantityPerUnit}" Header="Quantity per Unit" />
+                <DataGridTextColumn
+                    Binding="{Binding UnitPrice, StringFormat=\{0:C\}}"
+                    CellStyle="{StaticResource DataGridRightAlignedStyle}"
+                    Header="Unit Price" />
+                <DataGridTextColumn
+                    Binding="{Binding UnitsInStock}"
+                    CellStyle="{StaticResource DataGridRightAlignedStyle}"
+                    Header="Units In Stock" />
+                <DataGridCheckBoxColumn Binding="{Binding Discontinued}" Header="Is Discontinued" />
+                <DataGridTextColumn Binding="{Binding Category.CategoryName}" Header="Category" />
+                <DataGridTextColumn Binding="{Binding Supplier.CompanyName}" Header="Supplier" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" />
     </Grid>
 </Window>

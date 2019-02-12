@@ -1,4 +1,5 @@
 ﻿using DataSample.BusinessLayer;
+using DataSample.BusinessLayer.Services;
 using DataSample.Client.Views;
 using DataSample.DataAccessLayer.Dapper;
 using DataSample.DataAccessLayer.EntityFramework;
@@ -67,7 +68,9 @@ namespace DataSample.Client
                     return new EntityFrameworkContext(options);
                 })
                 .AddSingleton<IDapperContext, DapperContext>((_) => new DapperContext(connectionString))
-                .AddSingleton<IProductsService, EntityFrameworkProductsService>();
+                //.AddSingleton<IProductsService, EntityFrameworkProductsService>()
+                .AddSingleton<IProductsService, DapperProductsService>()
+                ;
 
             // Add AutoMapper
             //var config = new AutoMapper.MapperConfiguration(cfg =>

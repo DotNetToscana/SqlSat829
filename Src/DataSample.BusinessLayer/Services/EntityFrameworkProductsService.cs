@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using DalModels = DataSample.DataAccessLayer.EntityFramework.Models;
 using Entities = DataSample.Common.Models;
 
-namespace DataSample.BusinessLayer
+namespace DataSample.BusinessLayer.Services
 {
     public class EntityFrameworkProductsService : IProductsService
     {

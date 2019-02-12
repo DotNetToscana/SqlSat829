@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Extensions.DependencyInjection;
 using DataSample.BusinessLayer;
+using DataSample.BusinessLayer.Services;
 
 namespace DataSample.Client.Views
 {
@@ -25,18 +26,33 @@ namespace DataSample.Client.Views
     {
         private readonly IProductsService productsService;
 
-        public MainWindow(IServiceProvider serviceProvider, IProductsService productsService)
+        public MainWindow(IProductsService productsService)
         {
             InitializeComponent();
 
             this.productsService = productsService;
         }
 
-        private async void ButtonExit_Click(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            await productsService.GetProductsAsync(null, 0, 30);
+            await SearchAsync();
+        }
 
-            Application.Current.Shutdown();
+        private async void SearchTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            await SearchAsync();
+        }
+
+        private async Task SearchAsync()
+        {
+            try
+            {
+                var products = await productsService.GetProductsAsync(SearchTextBox.Text.Trim(), 0, 50);
+                ProductsDataGrid.ItemsSource = products;
+            }
+            catch
+            {
+            }
         }
     }
 }
