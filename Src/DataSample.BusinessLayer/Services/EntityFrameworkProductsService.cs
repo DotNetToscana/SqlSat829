@@ -41,7 +41,7 @@ namespace DataSample.BusinessLayer.Services
             return products;
         }
 
-        public async Task SaveAsync(Entities.Product product)
+        public async Task<Entities.Product> SaveAsync(Entities.Product product)
         {
             var dbProduct = await context.GetData<DalModels.Product>(trackingChanges: true).FirstOrDefaultAsync(p => p.ProductId == product.ProductId);
             if (dbProduct != null)
@@ -49,6 +49,8 @@ namespace DataSample.BusinessLayer.Services
                 dbProduct.ProductName = product.ProductName;
                 await context.SaveAsync();
             }
+
+            return product;
         }
     }
 }

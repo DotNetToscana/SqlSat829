@@ -33,15 +33,17 @@ namespace DataSample.BusinessLayer.Services
             return products;
         }
 
-        public Task SaveAsync(Product product)
+        public async Task<Product> SaveAsync(Product product)
         {
             var sql = "UPDATE Products SET ProductName = @productName WHERE ProductId = @productId";
-            return context.ExecuteAsync(sql,
+            await context.ExecuteAsync(sql,
                 new
                 {
                     product.ProductName,
                     product.ProductId
                 });
+
+            return product;
         }
 
         private void AddPagination(ref string sql, int pageIndex, int itemsPerPage)

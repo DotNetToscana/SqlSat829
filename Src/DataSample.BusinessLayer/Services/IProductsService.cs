@@ -9,6 +9,6 @@ namespace DataSample.BusinessLayer.Services
     {
         Task<IEnumerable<Product>> GetAsync(string searchTerm, int pageIndex, int itemsPerPage);
 
-        Task SaveAsync(Product product);
+        Task<Product> SaveAsync(Product product);
     }
 }
