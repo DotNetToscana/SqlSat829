@@ -16,7 +16,7 @@ namespace DataSample.BusinessLayer.Services
             this.context = context;
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync(string searchTerm, int pageIndex, int itemsPerPage)
+        public async Task<IEnumerable<Product>> GetAsync(string searchTerm, int pageIndex, int itemsPerPage)
         {
             var sql = @"SELECT p.*, s.*, c.*
                         FROM Products p
@@ -34,16 +34,27 @@ namespace DataSample.BusinessLayer.Services
                     product.Category = category;
 
                     return product;
-                }, 
+                },
                 splitOn: "SupplierId, CategoryId",
                 param: new { SearchTerm = $"%{searchTerm}%" });
 
             return products;
         }
 
-        private void AddPagination(ref string query, int pageIndex, int itemsPerPage)
+        public Task SaveAsync(Product product)
         {
-            query += $" OFFSET {pageIndex * itemsPerPage} ROWS FETCH NEXT {itemsPerPage} ROWS ONLY";
+            var sql = "UPDATE Products SET ProductName = @productName WHERE ProductId = @productId";
+            return context.ExecuteAsync(sql,
+                new
+                {
+                    product.ProductName,
+                    product.ProductId
+                });
+        }
+
+        private void AddPagination(ref string sql, int pageIndex, int itemsPerPage)
+        {
+            sql += $" OFFSET {pageIndex * itemsPerPage} ROWS FETCH NEXT {itemsPerPage} ROWS ONLY";
         }
     }
 }

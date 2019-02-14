@@ -7,6 +7,8 @@ namespace DataSample.BusinessLayer.Services
 {
     public interface IProductsService
     {
-        Task<IEnumerable<Product>> GetProductsAsync(string searchTerm, int pageIndex, int itemsPerPage);
+        Task<IEnumerable<Product>> GetAsync(string searchTerm, int pageIndex, int itemsPerPage);
+
+        Task SaveAsync(Product product);
     }
 }

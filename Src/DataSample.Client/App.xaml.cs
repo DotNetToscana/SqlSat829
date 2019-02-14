@@ -82,6 +82,7 @@ namespace DataSample.Client
             //services.AddSingleton(mapper);
 
             services.AddTransient(typeof(MainWindow));
+            services.AddTransient(typeof(EditProductWindow));
         }
     }
 }

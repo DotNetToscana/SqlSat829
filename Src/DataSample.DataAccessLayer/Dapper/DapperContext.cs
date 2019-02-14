@@ -62,7 +62,7 @@ namespace DataSample.DataAccessLayer.Dapper
 
         public Task<T> InsertAsync<T>(string sql, object param = null, CommandType? commandType = null) where T : class
         {
-            // Aggiunge il comando SQL per recuperare la chiave del record appena inserito.
+            // Adds the SQL query to get the Id of the last inserted record.
             sql += "; SELECT CAST(SCOPE_IDENTITY() AS INT); ";
             return Connection.QuerySingleAsync<T>(sql, param, commandType: commandType);
         }

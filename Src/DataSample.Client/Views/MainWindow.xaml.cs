@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Microsoft.Extensions.DependencyInjection;
 using DataSample.BusinessLayer;
 using DataSample.BusinessLayer.Services;
+using DataSample.Common.Models;
 
 namespace DataSample.Client.Views
 {
@@ -25,11 +26,13 @@ namespace DataSample.Client.Views
     public partial class MainWindow : Window
     {
         private readonly IProductsService productsService;
+        private readonly IServiceProvider serviceProvider;
 
-        public MainWindow(IProductsService productsService)
+        public MainWindow(IServiceProvider serviceProvider, IProductsService productsService)
         {
             InitializeComponent();
 
+            this.serviceProvider = serviceProvider;
             this.productsService = productsService;
         }
 
@@ -47,11 +50,33 @@ namespace DataSample.Client.Views
         {
             try
             {
-                var products = await productsService.GetProductsAsync(SearchTextBox.Text.Trim(), 0, 50);
+                Cursor = Cursors.Wait;
+                var products = await productsService.GetAsync(SearchTextBox.Text.Trim(), 0, 50);
                 ProductsDataGrid.ItemsSource = products;
             }
             catch
             {
+            }
+            finally
+            {
+                Cursor = Cursors.Arrow;
+            }
+        }
+
+        private async void ProductsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var product = (sender as DataGrid).SelectedItem as Product;
+            if (product != null)
+            {
+                var editWindow = serviceProvider.GetRequiredService<EditProductWindow>();
+                editWindow.Product = product;
+                var saved = editWindow.ShowDialog();
+
+                if (saved.GetValueOrDefault())
+                {
+                    // If data has been changed, refresh the grid.
+                    await SearchAsync();
+                }
             }
         }
     }

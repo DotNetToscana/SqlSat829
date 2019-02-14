@@ -8,6 +8,7 @@
     Title="Data Sample"
     Width="900"
     Height="600"
+    Background="WhiteSmoke"
     FontSize="20"
     Loaded="Window_Loaded"
     mc:Ignorable="d">
@@ -27,7 +28,7 @@
 
         <StackPanel
             Grid.Row="0"
-            Margin="0,0,5,0"
+            Margin="0,5,5,0"
             HorizontalAlignment="Right"
             Orientation="Horizontal">
             <TextBlock Margin="0,0,5,0" Text="Search term:" />
@@ -44,7 +45,8 @@
             AutoGenerateColumns="False"
             CanUserAddRows="False"
             CanUserDeleteRows="False"
-            IsReadOnly="True">
+            IsReadOnly="True"
+            MouseDoubleClick="ProductsDataGrid_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Binding="{Binding ProductId}"
