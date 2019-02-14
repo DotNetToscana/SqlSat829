@@ -26,34 +26,13 @@ namespace DataSample.BusinessLayer.Services
                 .OrderBy(p => p.ProductName)
                 .Skip(pageIndex * itemsPerPage).Take(itemsPerPage).Select(p => new Entities.Product
                 {
-                    Category = new Entities.Category
-                    {
-                        CategoryId = p.Category.CategoryId,
-                        CategoryName = p.Category.CategoryName,
-                        Description = p.Category.Description
-                    },
-                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.CategoryName,
                     Discontinued = p.Discontinued,
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
                     QuantityPerUnit = p.QuantityPerUnit,
                     ReorderLevel = p.ReorderLevel,
-                    Supplier = new Entities.Supplier
-                    {
-                        Address = p.Supplier.Address,
-                        City = p.Supplier.City,
-                        CompanyName = p.Supplier.CompanyName,
-                        ContactName = p.Supplier.ContactName,
-                        ContactTitle = p.Supplier.ContactTitle,
-                        Country = p.Supplier.Country,
-                        Fax = p.Supplier.Fax,
-                        HomePage = p.Supplier.HomePage,
-                        Phone = p.Supplier.Phone,
-                        PostalCode = p.Supplier.PostalCode,
-                        Region = p.Supplier.Region,
-                        SupplierId = p.Supplier.SupplierId
-                    },
-                    SupplierId = p.SupplierId,
+                    SupplierName = p.Supplier.CompanyName,                    
                     UnitPrice = p.UnitPrice,
                     UnitsInStock = p.UnitsInStock,
                     UnitsOnOrder = p.UnitsOnOrder

@@ -18,7 +18,7 @@ namespace DataSample.BusinessLayer.Services
 
         public async Task<IEnumerable<Product>> GetAsync(string searchTerm, int pageIndex, int itemsPerPage)
         {
-            var sql = @"SELECT p.*, s.*, c.*
+            var sql = @"SELECT p.*, s.CompanyName AS SupplierName, c.CategoryName
                         FROM Products p
                         LEFT JOIN Suppliers s ON p.SupplierID = s.SupplierID
                         LEFT JOIN Categories c ON p.CategoryID = c.CategoryID
@@ -27,15 +27,7 @@ namespace DataSample.BusinessLayer.Services
 
             AddPagination(ref sql, pageIndex, itemsPerPage);
 
-            var products = await context.GetDataAsync<Product, Supplier, Category, Product>(sql,
-                map: (product, supplier, category) =>
-                {
-                    product.Supplier = supplier;
-                    product.Category = category;
-
-                    return product;
-                },
-                splitOn: "SupplierId, CategoryId",
+            var products = await context.GetDataAsync<Product>(sql,                
                 param: new { SearchTerm = $"%{searchTerm}%" });
 
             return products;

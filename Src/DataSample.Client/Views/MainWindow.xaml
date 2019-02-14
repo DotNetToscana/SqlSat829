@@ -63,8 +63,8 @@
                     CellStyle="{StaticResource DataGridRightAlignedStyle}"
                     Header="Units In Stock" />
                 <DataGridCheckBoxColumn Binding="{Binding Discontinued}" Header="Is Discontinued" />
-                <DataGridTextColumn Binding="{Binding Category.CategoryName}" Header="Category" />
-                <DataGridTextColumn Binding="{Binding Supplier.CompanyName}" Header="Supplier" />
+                <DataGridTextColumn Binding="{Binding CategoryName}" Header="Category" />
+                <DataGridTextColumn Binding="{Binding SupplierName}" Header="Supplier" />
             </DataGrid.Columns>
         </DataGrid>
 

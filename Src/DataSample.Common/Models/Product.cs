@@ -10,10 +10,6 @@ namespace DataSample.Common.Models
 
         public string ProductName { get; set; }
 
-        public int? SupplierId { get; set; }
-
-        public int? CategoryId { get; set; }
-
         public string QuantityPerUnit { get; set; }
 
         public decimal? UnitPrice { get; set; }
@@ -26,8 +22,8 @@ namespace DataSample.Common.Models
 
         public bool Discontinued { get; set; }
 
-        public Supplier Supplier { get; set; }
+        public string CategoryName { get; set; }
 
-        public Category Category { get; set; }
+        public string SupplierName { get; set; }
     }
 }
