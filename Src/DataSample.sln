@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.28516.95
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataSample.Client", "DataSample.Client\DataSample.Client.csproj", "{BF0F4070-523E-4FCB-B7B2-19C98EF1EB7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSample.Common", "DataSample.Common\DataSample.Common.csproj", "{A95F7E50-C2EC-4AE5-B117-4C052A920A5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataSample.Common", "DataSample.Common\DataSample.Common.csproj", "{A95F7E50-C2EC-4AE5-B117-4C052A920A5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSample.BusinessLayer", "DataSample.BusinessLayer\DataSample.BusinessLayer.csproj", "{A4596AD6-F120-43CC-98A3-D50C9A8CCE29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataSample.BusinessLayer", "DataSample.BusinessLayer\DataSample.BusinessLayer.csproj", "{A4596AD6-F120-43CC-98A3-D50C9A8CCE29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSample.DataAccessLayer", "DataSample.DataAccessLayer\DataSample.DataAccessLayer.csproj", "{59CA66D5-4D55-4966-8F8A-4B810BF71BA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataSample.DataAccessLayer", "DataSample.DataAccessLayer\DataSample.DataAccessLayer.csproj", "{59CA66D5-4D55-4966-8F8A-4B810BF71BA0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataSample.Benchmark", "DataSample.Benchmark\DataSample.Benchmark.csproj", "{75F25FB1-8FBC-4F1C-B8BD-572810CA8E7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{59CA66D5-4D55-4966-8F8A-4B810BF71BA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59CA66D5-4D55-4966-8F8A-4B810BF71BA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59CA66D5-4D55-4966-8F8A-4B810BF71BA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75F25FB1-8FBC-4F1C-B8BD-572810CA8E7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75F25FB1-8FBC-4F1C-B8BD-572810CA8E7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75F25FB1-8FBC-4F1C-B8BD-572810CA8E7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75F25FB1-8FBC-4F1C-B8BD-572810CA8E7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -61,18 +61,18 @@ namespace DataSample.Client
             var connectionString = Configuration.GetConnectionString("SqlConnection");
 
             services
-                //.AddSingleton<IEntityFrameworkContext, EntityFrameworkContext>((_) =>
-                //{
-                //    var options = new DbContextOptionsBuilder<EntityFrameworkContext>()
-                //        .UseSqlServer(connectionString)
-                //        .Options;
+                .AddSingleton<IEntityFrameworkContext, EntityFrameworkContext>((_) =>
+                {
+                    var options = new DbContextOptionsBuilder<EntityFrameworkContext>()
+                        .UseSqlServer(connectionString)
+                        .Options;
 
-                //    return new EntityFrameworkContext(options);
-                //})
-                //.AddSingleton<IDapperContext, DapperContext>((_) => new DapperContext(connectionString))
-                //.AddSingleton<IProductsService, EntityFrameworkProductsService>()
+                    return new EntityFrameworkContext(options);
+                })
+                .AddSingleton<IDapperContext, DapperContext>((_) => new DapperContext(connectionString))
+                .AddSingleton<IProductsService, EntityFrameworkProductsService>()
                 //.AddSingleton<IProductsService, DapperProductsService>()
-                .AddSingleton<IProductsService, RemoteProductsService>()
+                //.AddSingleton<IProductsService, RemoteProductsService>()
                 ;
 
             // Add AutoMapper
