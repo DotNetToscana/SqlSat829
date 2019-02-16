@@ -19,7 +19,6 @@ namespace DataSample.Client.Services
             client = new HttpClient { BaseAddress = new Uri(BASE_URL) };
         }
 
-
         public async Task<IEnumerable<Product>> GetAsync(string searchTerm, int pageIndex, int itemsPerPage)
         {
             var resource = $"Products?searchTerm={searchTerm}&pageIndex={pageIndex}&itemsPerPage={itemsPerPage}";

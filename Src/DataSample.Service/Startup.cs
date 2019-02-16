@@ -47,8 +47,8 @@ namespace DataSample.Service
                     return new EntityFrameworkContext(options);
                 })
                 .AddSingleton<IDapperContext, DapperContext>((_) => new DapperContext(connectionString))
-                //.AddSingleton<IProductsService, EntityFrameworkProductsService>()
-                .AddSingleton<IProductsService, DapperProductsService>()
+                .AddSingleton<IProductsService, EntityFrameworkProductsService>()
+                //.AddSingleton<IProductsService, DapperProductsService>()
                 ;
 
             services.AddMvc().AddNewtonsoftJson();
