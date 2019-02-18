@@ -75,15 +75,6 @@ namespace DataSample.Client
                 //.AddSingleton<IProductsService, RemoteProductsService>()
                 ;
 
-            // Add AutoMapper
-            //var config = new AutoMapper.MapperConfiguration(cfg =>
-            //{
-            //    cfg.AddProfile(new AutoMapperProfile());
-            //});
-            //
-            //var mapper = config.CreateMapper();
-            //services.AddSingleton(mapper);
-
             services.AddTransient(typeof(MainWindow));
             services.AddTransient(typeof(EditProductWindow));
         }

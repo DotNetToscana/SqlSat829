@@ -25,20 +25,17 @@ namespace DataSample.Benchmark
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            var builder = new ConfigurationBuilder()
+            var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
-            var configuration = builder.Build();
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
 
             var connectionString = configuration.GetConnectionString("SqlConnection");
-
             var options = new DbContextOptionsBuilder<EntityFrameworkContext>()
                        .UseSqlServer(connectionString)
                        .Options;
 
             EntityFrameworkProductsService = new EntityFrameworkProductsService(new EntityFrameworkContext(options));
-
             DapperProductsService = new DapperProductsService(new DapperContext(connectionString));
         }
     }
