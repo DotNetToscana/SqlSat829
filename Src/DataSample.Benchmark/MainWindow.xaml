@@ -12,19 +12,9 @@
     mc:Ignorable="d">
     <telerik:RadNavigationView x:Name="navigationView" PaneHeader="SQL Saturday - 829">
         <telerik:RadNavigationView.Items>
-            <telerik:RadNavigationViewItem Content="Bookmarks">
+            <telerik:RadNavigationViewItem Content="Benchmark">
                 <telerik:RadNavigationViewItem.Icon>
-                    <telerik:RadGlyph FontSize="16" Glyph="&#xe303;" />
-                </telerik:RadNavigationViewItem.Icon>
-            </telerik:RadNavigationViewItem>
-            <telerik:RadNavigationViewItem Content="Favorites">
-                <telerik:RadNavigationViewItem.Icon>
-                    <telerik:RadGlyph FontSize="16" Glyph="&#xe301;" />
-                </telerik:RadNavigationViewItem.Icon>
-            </telerik:RadNavigationViewItem>
-            <telerik:RadNavigationViewItem Content="Files">
-                <telerik:RadNavigationViewItem.Icon>
-                    <telerik:RadGlyph FontSize="16" Glyph="&#xe901;" />
+                    <telerik:RadGlyph FontSize="16" Glyph="&#xe107;" />
                 </telerik:RadNavigationViewItem.Icon>
             </telerik:RadNavigationViewItem>
         </telerik:RadNavigationView.Items>
@@ -60,7 +50,7 @@
         <telerik:RadNavigationView.PaneFooter>
             <telerik:RadNavigationViewItem Content="Exit">
                 <telerik:RadNavigationViewItem.Icon>
-                    <telerik:RadGlyph FontSize="16" Glyph="&#xe901;" />
+                    <telerik:RadGlyph FontSize="16" Glyph="&#xe01a;" />
                 </telerik:RadNavigationViewItem.Icon>
             </telerik:RadNavigationViewItem>
         </telerik:RadNavigationView.PaneFooter>
