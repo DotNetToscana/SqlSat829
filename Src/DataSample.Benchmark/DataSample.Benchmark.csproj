@@ -18,13 +18,21 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0-preview.19074.2" />
-    <PackageReference Include="Telerik.Windows.Controls.Chart.for.Wpf.Trial" Version="2019.1.116" />
-    <PackageReference Include="Telerik.Windows.Controls.Data.for.Wpf.Trial" Version="2019.1.116" />
-    <PackageReference Include="Telerik.Windows.Controls.Navigation.for.Wpf.Xaml.Trial" Version="2019.1.116" />
+    <PackageReference Include="Telerik.Windows.Controls.Chart.for.Wpf.Trial" Version="2019.1.220" />
+    <PackageReference Include="Telerik.Windows.Controls.Data.for.Wpf.Trial" Version="2019.1.220" />
+    <PackageReference Include="Telerik.Windows.Controls.DataVisualization.for.Wpf.Xaml.Trial" Version="2019.1.220" />
+    <PackageReference Include="Telerik.Windows.Controls.for.Wpf.Trial" Version="2019.1.220" />
+    <PackageReference Include="Telerik.Windows.Controls.Navigation.for.Wpf.Xaml.Trial" Version="2019.1.220" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DataSample.BusinessLayer\DataSample.BusinessLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
 </Project>

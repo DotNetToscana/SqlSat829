@@ -7,9 +7,34 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
     Title="SQL Saturday - 829"
-    Width="800"
-    Height="450"
+    Width="1200"
+    Height="900"
     mc:Ignorable="d">
+
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+
+        <Style x:Key="LabelCaption" TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="BenchGauge" TargetType="telerik:RadRadialGauge">
+            <Setter Property="Width" Value="350" />
+            <Setter Property="Height" Value="350" />
+        </Style>
+
+        <Style x:Key="BenchRadialScale" TargetType="telerik:RadialScale">
+            <Setter Property="LabelFormat" Value="{}{0} ms" />
+            <Setter Property="LabelRotationMode" Value="SurroundOut" />
+            <Setter Property="Min" Value="0" />
+            <Setter Property="Max" Value="2000" />
+        </Style>
+    </Window.Resources>
 
     <telerik:RadNavigationView x:Name="navigationView" PaneHeader="SQL Saturday - 829">
         <telerik:RadNavigationView.Items>
@@ -20,18 +45,64 @@
             </telerik:RadNavigationViewItem>
         </telerik:RadNavigationView.Items>
         <telerik:RadNavigationView.Content>
-            <Grid>
+            <Grid Margin="15">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="6*" />
                     <RowDefinition Height="100" />
                 </Grid.RowDefinitions>
-                <Label
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content="Hello .NET Core!"
-                    FontSize="40" />
 
-                <Grid Grid.Row="1" Margin="15">
+                <ScrollViewer>
+                    <TextBlock
+                        Name="LogArea"
+                        FontSize="20"
+                        ScrollViewer.CanContentScroll="True"
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        TextWrapping="NoWrap" />
+                </ScrollViewer>
+
+                <Grid Grid.Row="1" Margin="15,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*" />
+                        <ColumnDefinition Width="5*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="35" />
+                    </Grid.RowDefinitions>
+
+                    <telerik:RadRadialGauge Style="{StaticResource BenchGauge}">
+                        <telerik:RadialScale Name="scaleDapper" Style="{StaticResource BenchRadialScale}">
+                            <telerik:RadialScale.Indicators>
+                                <telerik:Needle Name="needleDapper" Value="0" />
+                                <telerik:Pinpoint />
+                            </telerik:RadialScale.Indicators>
+                        </telerik:RadialScale>
+                    </telerik:RadRadialGauge>
+
+                    <Label
+                        Grid.Row="1"
+                        Content="Dapper"
+                        Style="{StaticResource LabelCaption}" />
+
+                    <telerik:RadRadialGauge Grid.Column="1" Style="{StaticResource BenchGauge}">
+                        <telerik:RadialScale Name="scaleEntityFramework" Style="{StaticResource BenchRadialScale}">
+                            <telerik:RadialScale.Indicators>
+                                <telerik:Needle Name="needleEntityFramework" Value="0" />
+                                <telerik:Pinpoint />
+                            </telerik:RadialScale.Indicators>
+                        </telerik:RadialScale>
+                    </telerik:RadRadialGauge>
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Content="Entity Framework"
+                        Style="{StaticResource LabelCaption}" />
+                </Grid>
+
+                <Grid Grid.Row="2" Margin="15">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
@@ -41,15 +112,41 @@
                     </Grid.ColumnDefinitions>
 
                     <Button
-                        Click="ButtonExit_Click"
-                        Content="Exit"
-                        FontSize="20" />
+                        Name="ButtonClearAndInit"
+                        Grid.Column="0"
+                        Click="ButtonClearAndInit_Click"
+                        Content="Clear results &amp;&#xa;Init tests"
+                        Style="{StaticResource ButtonStyle}" />
+                    <Button
+                        Name="Button1000Records"
+                        Grid.Column="1"
+                        Click="Button1000Records_Click"
+                        Content="Get 1000 records"
+                        Style="{StaticResource ButtonStyle}" />
+                    <Button
+                        Name="Button10000Records"
+                        Grid.Column="2"
+                        Click="Button10000Records_Click"
+                        Content="Get 10000 records"
+                        Style="{StaticResource ButtonStyle}" />
+                    <Button
+                        Name="Button50000Records"
+                        Grid.Column="3"
+                        Click="Button50000Records_Click"
+                        Content="Get 50000 records"
+                        Style="{StaticResource ButtonStyle}" />
+                    <Button
+                        Name="Button100000Records"
+                        Grid.Column="4"
+                        Click="Button100000Records_Click"
+                        Content="Get 100000 records"
+                        Style="{StaticResource ButtonStyle}" />
 
                 </Grid>
             </Grid>
         </telerik:RadNavigationView.Content>
         <telerik:RadNavigationView.PaneFooter>
-            <telerik:RadNavigationViewItem Content="Exit">
+            <telerik:RadNavigationViewItem Click="ButtonExit_Click" Content="Exit">
                 <telerik:RadNavigationViewItem.Icon>
                     <telerik:RadGlyph FontSize="16" Glyph="&#xe01a;" />
                 </telerik:RadNavigationViewItem.Icon>
