@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace DataSample.Benchmark.Views
 {
@@ -43,13 +44,14 @@ namespace DataSample.Benchmark.Views
                 await App.DapperProductsService.GetAsync(string.Empty, 0, 100);
                 await App.EntityFrameworkProductsService.GetAsync(string.Empty, 0, 100);
             });
+
             LogArea.Text = "Ready";
         }
 
-
-        protected async Task<long> MeasureExecutionAsync(Func<Task> action)
+        private async Task<long> MeasureExecutionAsync(Func<Task> action)
         {
-            var watch = System.Diagnostics.Stopwatch.StartNew();
+            var watch = Stopwatch.StartNew();
+
             try
             {
                 Cursor = Cursors.Wait;
@@ -63,10 +65,11 @@ namespace DataSample.Benchmark.Views
             {
                 Cursor = Cursors.Arrow;
             }
-            watch.Stop();
-            var elapsedMS = watch.ElapsedMilliseconds;
 
-            return elapsedMS;
+            watch.Stop();
+            var elapsed = watch.ElapsedMilliseconds;
+
+            return elapsed;
         }
 
         private async Task ExecuteTestAsync(float maxValue, int maxRecords)
@@ -78,8 +81,11 @@ namespace DataSample.Benchmark.Views
             {
                 await App.DapperProductsService.GetAsync(string.Empty, 0, maxRecords);
             });
+
             needleDapper.Value = elapsedMilliseconds;
-            LogArea.Text += $"\nDapper {maxRecords}: {elapsedMilliseconds}ms";
+            var message = $"Dapper {maxRecords:n0} records: {elapsedMilliseconds:n0}ms";
+            dapperResults.Content = message;
+            LogArea.Text += $"\n{message}";
 
             elapsedMilliseconds = await MeasureExecutionAsync(async () =>
             {
@@ -87,7 +93,11 @@ namespace DataSample.Benchmark.Views
             });
 
             needleEntityFramework.Value = elapsedMilliseconds;
-            LogArea.Text += $"\nEntity Framework Core {maxRecords}: {elapsedMilliseconds}ms";
+            message= $"Entity Framework Core {maxRecords:n0} records: {elapsedMilliseconds:n0}ms";
+            entityFrameworkResults.Content = message;
+            LogArea.Text += $"\n{message}";
+
+            LogAreaScroll.ScrollToBottom();
         }
 
         private async void Button1000Records_Click(object sender, RoutedEventArgs e)
@@ -99,10 +109,12 @@ namespace DataSample.Benchmark.Views
         {
             await ExecuteTestAsync(2000, 10000);
         }
+
         private async void Button50000Records_Click(object sender, RoutedEventArgs e)
         {
             await ExecuteTestAsync(2000, 50000);
         }
+
         private async void Button100000Records_Click(object sender, RoutedEventArgs e)
         {
             await ExecuteTestAsync(2000, 100000);

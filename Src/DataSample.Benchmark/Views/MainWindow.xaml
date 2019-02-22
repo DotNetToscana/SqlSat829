@@ -7,8 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
     Title="SQL Saturday - 829"
-    Width="1200"
-    Height="900"
+    Width="1000"
+    Height="800"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
     <Window.Resources>
@@ -49,10 +50,10 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="4*" />
                     <RowDefinition Height="6*" />
-                    <RowDefinition Height="100" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <ScrollViewer>
+                <ScrollViewer Name="LogAreaScroll">
                     <TextBlock
                         Name="LogArea"
                         FontSize="20"
@@ -82,6 +83,7 @@
                     </telerik:RadRadialGauge>
 
                     <Label
+                        Name="dapperResults"
                         Grid.Row="1"
                         Content="Dapper"
                         Style="{StaticResource LabelCaption}" />
@@ -96,6 +98,7 @@
                     </telerik:RadRadialGauge>
 
                     <Label
+                        Name="entityFrameworkResults"
                         Grid.Row="1"
                         Grid.Column="1"
                         Content="Entity Framework"
@@ -121,30 +124,31 @@
                         Name="Button1000Records"
                         Grid.Column="1"
                         Click="Button1000Records_Click"
-                        Content="Get 1000 records"
+                        Content="Get 1.000 records"
                         Style="{StaticResource ButtonStyle}" />
                     <Button
                         Name="Button10000Records"
                         Grid.Column="2"
                         Click="Button10000Records_Click"
-                        Content="Get 10000 records"
+                        Content="Get 10.000 records"
                         Style="{StaticResource ButtonStyle}" />
                     <Button
                         Name="Button50000Records"
                         Grid.Column="3"
                         Click="Button50000Records_Click"
-                        Content="Get 50000 records"
+                        Content="Get 50.000 records"
                         Style="{StaticResource ButtonStyle}" />
                     <Button
                         Name="Button100000Records"
                         Grid.Column="4"
                         Click="Button100000Records_Click"
-                        Content="Get 100000 records"
+                        Content="Get 100.000 records"
                         Style="{StaticResource ButtonStyle}" />
 
                 </Grid>
             </Grid>
         </telerik:RadNavigationView.Content>
+
         <telerik:RadNavigationView.PaneFooter>
             <telerik:RadNavigationViewItem Click="ButtonExit_Click" Content="Exit">
                 <telerik:RadNavigationViewItem.Icon>
