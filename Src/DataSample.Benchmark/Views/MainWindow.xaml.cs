@@ -83,7 +83,7 @@ namespace DataSample.Benchmark.Views
             });
 
             needleDapper.Value = elapsedMilliseconds;
-            var message = $"Dapper {maxRecords:n0} records: {elapsedMilliseconds:n0}ms";
+            var message = $"Dapper {maxRecords:n0} records: {elapsedMilliseconds:n0} ms";
             dapperResults.Content = message;
             LogArea.Text += $"\n{message}";
 
@@ -93,7 +93,7 @@ namespace DataSample.Benchmark.Views
             });
 
             needleEntityFramework.Value = elapsedMilliseconds;
-            message= $"Entity Framework Core {maxRecords:n0} records: {elapsedMilliseconds:n0}ms";
+            message= $"Entity Framework Core {maxRecords:n0} records: {elapsedMilliseconds:n0} ms";
             entityFrameworkResults.Content = message;
             LogArea.Text += $"\n{message}";
 
@@ -112,12 +112,12 @@ namespace DataSample.Benchmark.Views
 
         private async void Button50000Records_Click(object sender, RoutedEventArgs e)
         {
-            await ExecuteTestAsync(2000, 50000);
+            await ExecuteTestAsync(3000, 50000);
         }
 
         private async void Button100000Records_Click(object sender, RoutedEventArgs e)
         {
-            await ExecuteTestAsync(2000, 100000);
+            await ExecuteTestAsync(5000, 100000);
         }
     }
 }
